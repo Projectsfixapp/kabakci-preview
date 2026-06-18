@@ -1,0 +1,830 @@
+<!--
+  ============================================================
+  KABAKCI GMBH — WEBSITE v3
+  ============================================================
+  🔧 BILDER AUSTAUSCHEN:
+     Suche im Code nach "🖼️" — alle Bilder sind dort
+     mit Kommentar markiert. Einfach die src="..." URLs ersetzen.
+
+  🔧 KONTAKTDATEN:
+     Suche nach "📞" — Telefon, E-Mail, Adresse sind dort.
+
+  Editieren im Browser: Texte mit gestricheltem Rand
+  beim Klicken sind direkt überschreibbar (contenteditable).
+  ============================================================
+-->
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kabakci GmbH – Kabel- & Straßenbau | Breitbandausbau Limburg, Hessen & RLP</title>
+<meta name="description" content="Kabakci GmbH aus Limburg a. d. Lahn: Spezialist für Breitbandausbau, Glasfaser, Kabel- & Straßenbau. Komplettservice aus einer Hand für Kommunen, Netzbetreiber und Energieversorger in Hessen und Rheinland-Pfalz." />
+
+<!-- Tailwind v3 Play CDN (stabil, kompatibel mit allen genutzten Klassen) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  // Konsolen-Warning von Tailwind unterdrücken
+  (function(){
+    const w = console.warn;
+    console.warn = function(...a){ if(String(a[0]||'').includes('cdn.tailwindcss.com')) return; w.apply(console, a); };
+  })();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --color-bg: #fafaf9;
+    --color-surface: #ffffff;
+    --color-surface-alt: #f5f5f4;
+    --color-text: #1c1917;
+    --color-text-muted: #57534e;
+    --color-border: #e7e5e4;
+    --color-accent: #e30613;
+    --color-accent-dark: #b8050f;
+    --color-accent-soft: rgba(227,6,19,0.10);
+    --font-display: 'Antonio', 'Inter', sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+  }
+  * { -webkit-font-smoothing: antialiased; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+  }
+  .font-display { font-family: var(--font-display); letter-spacing: -0.01em; }
+  .text-accent { color: var(--color-accent); }
+  .bg-accent { background: var(--color-accent); }
+  .bg-accent-soft { background: var(--color-accent-soft); }
+  .border-accent { border-color: var(--color-accent); }
+  .text-muted { color: var(--color-text-muted); }
+  .bg-surface-alt { background: var(--color-surface-alt); }
+  .border-default { border-color: var(--color-border); }
+  .bg-ink { background: var(--color-text); }
+  [contenteditable="true"]:focus { outline: 2px dashed var(--color-accent); outline-offset: 4px; border-radius: 4px; }
+
+  /* ============== ANIMATIONEN ============== */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1); }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: .12s; }
+  .reveal-delay-2 { transition-delay: .24s; }
+  .reveal-delay-3 { transition-delay: .36s; }
+
+  @keyframes kenburns { 0% { transform: scale(1.05); } 100% { transform: scale(1.15); } }
+  .kenburns { animation: kenburns 22s ease-in-out infinite alternate; }
+
+  @keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+  .pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+
+  /* Buttons */
+  .btn-primary {
+    position: relative; overflow: hidden;
+    background: var(--color-accent); color: white;
+    transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 32px -8px rgba(227,6,19,.45); background: var(--color-accent-dark); }
+  .btn-primary::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.28) 50%, transparent 70%);
+    transform: translateX(-100%); transition: transform .7s ease;
+  }
+  .btn-primary:hover::after { transform: translateX(100%); }
+
+  .btn-ghost {
+    border: 1.5px solid var(--color-border); color: var(--color-text); background: transparent;
+    transition: all .25s ease;
+  }
+  .btn-ghost:hover { border-color: var(--color-text); background: var(--color-text); color: white; transform: translateY(-2px); }
+
+  .btn-ghost-light { border: 1.5px solid rgba(255,255,255,.3); color: white; background: transparent; transition: all .25s ease; }
+  .btn-ghost-light:hover { background: white; color: var(--color-text); border-color: white; transform: translateY(-2px); }
+
+  /* Service-Cards */
+  .service-card { transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease; border: 1px solid var(--color-border); background: white; }
+  .service-card:hover { transform: translateY(-6px); box-shadow: 0 28px 56px -20px rgba(0,0,0,.15); border-color: var(--color-accent); }
+  .service-card .icon-wrap { transition: background .35s ease, color .35s ease; }
+  .service-card:hover .icon-wrap { background: var(--color-accent); color: white; }
+
+  /* Gallery */
+  .gallery-item { overflow: hidden; position: relative; display: block; }
+  .gallery-item img { transition: transform 1s cubic-bezier(.2,.7,.2,1); width: 100%; height: 100%; object-fit: cover; }
+  .gallery-item:hover img { transform: scale(1.06); }
+
+  /* Mobile menu */
+  #mobile-menu { transition: transform .35s ease, opacity .35s ease; }
+  #mobile-menu.hidden-menu { transform: translateY(-12px); opacity: 0; pointer-events: none; }
+
+  /* FAQ */
+  .faq-item summary { list-style: none; cursor: pointer; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item[open] .faq-icon { transform: rotate(45deg); background: var(--color-accent); color: white; }
+  .faq-icon { transition: transform .3s ease, background .3s ease, color .3s ease; }
+
+  /* Header */
+  #site-header { transition: background .3s ease, box-shadow .3s ease, padding .3s ease; }
+  #site-header .nav-link { color: rgba(255,255,255,.85); }
+  #site-header .nav-link:hover { color: #fff; }
+  #site-header .header-phone { color: #fff; }
+  #site-header .header-phone:hover { color: var(--color-accent); }
+  #site-header .header-logo text[fill="#1c1917"] { fill: #fff; }
+  #site-header .header-logo line { stroke: rgba(255,255,255,.7); }
+  #site-header .menu-icon { color: #fff; }
+
+  .header-scrolled { background: #ffffff; box-shadow: 0 1px 0 var(--color-border); }
+  .header-scrolled .nav-link { color: var(--color-text-muted); }
+  .header-scrolled .nav-link:hover { color: var(--color-accent); }
+  .header-scrolled .header-phone { color: var(--color-text); }
+  .header-scrolled .header-logo text[fill="#1c1917"] { fill: #1c1917; }
+  .header-scrolled .header-logo line { stroke: #57534e; }
+  .header-scrolled .menu-icon { color: #1c1917; }
+
+  .hero-grid {
+    background-image:
+      linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .divider-y > * + * { border-top: 1px solid var(--color-border); }
+  .divider-x > * + * { border-left: 1px solid var(--color-border); }
+
+  /* Logo hover */
+  .logo-wrap svg { transition: filter .3s ease, transform .3s ease; }
+  .logo-wrap:hover svg { filter: drop-shadow(0 4px 16px rgba(227,6,19,.3)); }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- HEADER START — Logo prominent (echte Rekonstruktion)         -->
+<!-- ============================================================ -->
+<header id="site-header" class="fixed top-0 left-0 right-0 z-50 bg-transparent">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 py-3 md:py-4 flex items-center justify-between gap-4">
+
+    <!--
+      🏷️ LOGO — SVG-Rekonstruktion gemäß Original
+      Falls du das echte Logo-PNG/SVG hostest, ersetze einfach den gesamten <svg>-Block
+      durch: <img src="DEINE-LOGO-URL" alt="Kabakci GmbH" class="h-14 md:h-16 lg:h-[68px] w-auto" />
+    -->
+    <a href="#top" class="logo-wrap header-logo flex items-center shrink-0" aria-label="Kabakci GmbH Startseite">
+      <svg viewBox="0 0 420 140" class="h-14 md:h-16 lg:h-[68px] w-auto" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Obere Zeile: KABEL- & STRASSENBAU -->
+        <text x="210" y="30" text-anchor="middle"
+              font-family="Antonio, sans-serif" font-size="19" font-weight="500"
+              fill="#1c1917" letter-spacing="4">KABEL- &amp; STRASSENBAU</text>
+        <!-- Gestrichelte Linie -->
+        <line x1="40" y1="44" x2="380" y2="44" stroke="#57534e" stroke-width="2" stroke-dasharray="7 5"/>
+        <!-- KABAKCI groß rot -->
+        <text x="200" y="108" text-anchor="middle"
+              font-family="Antonio, sans-serif" font-size="76" font-weight="700"
+              fill="#e30613" letter-spacing="3">KABAKCI</text>
+        <!-- GmbH klein, rechts unten -->
+        <text x="400" y="125" text-anchor="end"
+              font-family="Antonio, sans-serif" font-size="20" font-weight="500"
+              fill="#1c1917">GmbH</text>
+      </svg>
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden lg:flex items-center gap-8 text-sm font-medium">
+      <a href="#leistungen" class="nav-link transition">Leistungen</a>
+      <a href="#ueber-uns" class="nav-link transition">Über uns</a>
+      <a href="#maschinenpark" class="nav-link transition">Maschinenpark</a>
+      <a href="#referenzen" class="nav-link transition">Referenzen</a>
+      <a href="#karriere" class="nav-link transition">Karriere</a>
+      <a href="#faq" class="nav-link transition">FAQ</a>
+    </nav>
+
+    <div class="flex items-center gap-2 md:gap-3">
+      <!-- 📞 TELEFON HEADER -->
+      <a href="tel:+4964319999999" class="header-phone hidden md:flex items-center gap-2 text-sm font-semibold transition">
+        <i data-lucide="phone" class="w-4 h-4"></i>
+        <span>06431 / 999 999</span>
+      </a>
+      <a href="#kontakt" class="btn-primary hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold">
+        Anfrage <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      </a>
+      <button id="menu-toggle" class="menu-icon lg:hidden p-2 -mr-2" aria-label="Menü öffnen">
+        <i data-lucide="menu" class="w-7 h-7"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden-menu lg:hidden bg-white border-t border-default px-5 py-6">
+    <nav class="flex flex-col gap-1 text-base font-medium">
+      <a href="#leistungen" class="py-3 border-b border-default">Leistungen</a>
+      <a href="#ueber-uns" class="py-3 border-b border-default">Über uns</a>
+      <a href="#maschinenpark" class="py-3 border-b border-default">Maschinenpark</a>
+      <a href="#referenzen" class="py-3 border-b border-default">Referenzen</a>
+      <a href="#karriere" class="py-3 border-b border-default">Karriere</a>
+      <a href="#faq" class="py-3 border-b border-default">FAQ</a>
+      <a href="#kontakt" class="btn-primary mt-4 px-5 py-3.5 rounded-full text-center font-semibold">Anfrage stellen</a>
+    </nav>
+  </div>
+</header>
+<!-- HEADER END -->
+
+<main id="top" class="pt-24 md:pt-28">
+
+  <!-- ============================================================ -->
+  <!-- HERO — Full-bleed Bild mit Overlay                          -->
+  <!-- ============================================================ -->
+  <section class="relative">
+    <div class="absolute inset-0 z-0 overflow-hidden">
+      <!-- 🖼️ HERO-BILD — Glasfaser-Trasse / Baustelle, querformat, hochauflösend -->
+      <img src="https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=1800&q=85"
+           alt="Glasfaser-Baustelle der Kabakci GmbH"
+           class="kenburns w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/30"></div>
+      <div class="absolute inset-0 hero-grid opacity-40"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-5 md:px-8 py-24 md:py-36 lg:py-44">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur border border-white/20 text-xs font-medium text-white mb-8 reveal">
+          <span class="w-2 h-2 rounded-full bg-accent pulse-dot"></span>
+          <span contenteditable="true">Spezialist für Breitbandausbau · Hessen &amp; Rheinland-Pfalz</span>
+        </div>
+        <h1 class="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[88px] font-bold leading-[0.95] tracking-tight text-white reveal reveal-delay-1" contenteditable="true">
+          Glasfaser bis ins Haus.<br/>
+          <span class="text-accent">Tiefbau mit System.</span>
+        </h1>
+        <p class="mt-8 text-lg md:text-xl text-white/85 max-w-2xl reveal reveal-delay-2" contenteditable="true">
+          Kabakci GmbH realisiert den Breitbandausbau für Kommunen, Netzbetreiber und Energieversorger – vom Trassentiefbau über die Kabelverlegung bis zur Wiederherstellung der Straße. Alles aus einer Hand, termingerecht, mit eigenem Maschinenpark.
+        </p>
+        <div class="mt-10 flex flex-col sm:flex-row gap-3 reveal reveal-delay-3">
+          <a href="#kontakt" class="btn-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold">
+            Projekt anfragen <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+          <a href="#leistungen" class="btn-ghost-light inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold">
+            Leistungen ansehen
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Trust-Bar -->
+    <div class="relative z-10 max-w-7xl mx-auto px-5 md:px-8 -mb-12 md:-mb-14">
+      <div class="bg-white rounded-2xl shadow-2xl border border-default grid grid-cols-2 md:grid-cols-4 divider-x reveal">
+        <div class="p-5 md:p-7 text-center">
+          <div class="font-display text-3xl md:text-4xl font-bold text-accent" contenteditable="true">200k+</div>
+          <div class="text-xs text-muted mt-1 uppercase tracking-wider">Meter Kabel</div>
+        </div>
+        <div class="p-5 md:p-7 text-center">
+          <div class="font-display text-3xl md:text-4xl font-bold text-accent" contenteditable="true">15+</div>
+          <div class="text-xs text-muted mt-1 uppercase tracking-wider">Jahre Erfahrung</div>
+        </div>
+        <div class="p-5 md:p-7 text-center">
+          <div class="font-display text-3xl md:text-4xl font-bold text-accent" contenteditable="true">40+</div>
+          <div class="text-xs text-muted mt-1 uppercase tracking-wider">Fachkräfte</div>
+        </div>
+        <div class="p-5 md:p-7 text-center">
+          <div class="font-display text-3xl md:text-4xl font-bold text-accent" contenteditable="true">100%</div>
+          <div class="text-xs text-muted mt-1 uppercase tracking-wider">Eigene Teams</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- HERO END -->
+
+  <!-- ============================================================ -->
+  <!-- USP-STRIP                                                    -->
+  <!-- ============================================================ -->
+  <section class="bg-white pt-32 md:pt-40 pb-16 md:pb-20">
+    <div class="max-w-7xl mx-auto px-5 md:px-8 grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div class="reveal flex items-start gap-4">
+        <div class="shrink-0 w-12 h-12 rounded-lg bg-accent-soft flex items-center justify-center"><i data-lucide="layers" class="w-6 h-6 text-accent"></i></div>
+        <div>
+          <h3 class="font-display text-lg font-semibold" contenteditable="true">Alles aus einer Hand</h3>
+          <p class="text-sm text-muted mt-1" contenteditable="true">Planung, Tiefbau, Kabelverlegung, Oberflächenwiederherstellung – ein Ansprechpartner, eine Gewährleistung.</p>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-1 flex items-start gap-4">
+        <div class="shrink-0 w-12 h-12 rounded-lg bg-accent-soft flex items-center justify-center"><i data-lucide="truck" class="w-6 h-6 text-accent"></i></div>
+        <div>
+          <h3 class="font-display text-lg font-semibold" contenteditable="true">Eigener Maschinenpark</h3>
+          <p class="text-sm text-muted mt-1" contenteditable="true">Bagger, Kabelpflüge, Spülbohrgeräte, Rüttler – keine Subunternehmer für Kerngewerke, keine Verzögerungen durch Fremdleistung.</p>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-2 flex items-start gap-4">
+        <div class="shrink-0 w-12 h-12 rounded-lg bg-accent-soft flex items-center justify-center"><i data-lucide="calendar-check" class="w-6 h-6 text-accent"></i></div>
+        <div>
+          <h3 class="font-display text-lg font-semibold" contenteditable="true">Termintreue Umsetzung</h3>
+          <p class="text-sm text-muted mt-1" contenteditable="true">Strukturiertes Projektmanagement, klare Bauphasen, minimale Beeinträchtigung für Anwohner und Verkehr.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- USP END -->
+
+  <!-- ============================================================ -->
+  <!-- LEISTUNGEN                                                   -->
+  <!-- ============================================================ -->
+  <section id="leistungen" class="py-20 md:py-28">
+    <div class="max-w-7xl mx-auto px-5 md:px-8">
+      <div class="max-w-3xl reveal">
+        <div class="text-xs font-semibold uppercase tracking-widest text-accent">Leistungen</div>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold mt-3 leading-[1.05]" contenteditable="true">Spezialisiert auf Breitbandausbau. Erfahren im gesamten Tiefbau.</h2>
+        <p class="text-lg text-muted mt-5" contenteditable="true">
+          Unser Kerngeschäft ist der flächendeckende Glasfaser- und Breitbandausbau. Darüber hinaus realisieren wir die gesamte Bandbreite des klassischen Kabel- und Straßenbaus – effizient, normgerecht und mit einem klaren Blick für die Anforderungen vor Ort.
+        </p>
+      </div>
+
+      <div class="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <article class="service-card lg:col-span-2 rounded-2xl p-8 md:p-12 reveal">
+          <div class="flex items-start justify-between">
+            <div class="icon-wrap w-14 h-14 rounded-xl bg-accent-soft text-accent flex items-center justify-center"><i data-lucide="radio-tower" class="w-7 h-7"></i></div>
+            <span class="text-xs font-semibold text-accent uppercase tracking-widest">Kerngeschäft</span>
+          </div>
+          <h3 class="font-display text-2xl md:text-3xl font-bold mt-6" contenteditable="true">Breitband- &amp; Glasfaserausbau</h3>
+          <p class="text-muted mt-3" contenteditable="true">Von der Trassenplanung über den Leerrohrbau (Speedpipe, Mikrorohre, HDPE) bis zum Einblasen der Glasfaser und der Hausanschlussmontage. Wir setzen FTTB- und FTTH-Projekte für Netzbetreiber und Kommunen flächendeckend um.</p>
+          <ul class="mt-6 grid sm:grid-cols-2 gap-x-6 gap-y-2 text-sm">
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-accent"></i>Trassentiefbau &amp; Leerrohrverlegung</li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-accent"></i>Einblas- &amp; Einziehtechnik</li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-accent"></i>Hausanschlüsse (FTTH)</li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-accent"></i>Kabelschächte &amp; Verteiler</li>
+          </ul>
+        </article>
+
+        <article class="service-card rounded-2xl p-8 reveal reveal-delay-1">
+          <div class="icon-wrap w-14 h-14 rounded-xl bg-accent-soft text-accent flex items-center justify-center"><i data-lucide="cable" class="w-7 h-7"></i></div>
+          <h3 class="font-display text-xl font-bold mt-6" contenteditable="true">Kabel- &amp; Leitungsbau</h3>
+          <p class="text-sm text-muted mt-3" contenteditable="true">Strom-, Gas-, Wasser- und Telekommunikationsleitungen. Fachgerechte Verlegung nach DIN und DVGW.</p>
+        </article>
+
+        <article class="service-card rounded-2xl p-8 reveal">
+          <div class="icon-wrap w-14 h-14 rounded-xl bg-accent-soft text-accent flex items-center justify-center"><i data-lucide="construction" class="w-7 h-7"></i></div>
+          <h3 class="font-display text-xl font-bold mt-6" contenteditable="true">Straßen- &amp; Tiefbau</h3>
+          <p class="text-sm text-muted mt-3" contenteditable="true">Asphaltierung, Pflasterarbeiten, Bordsteine, Entwässerung, Aushub und Erschließung – komplette Tiefbaugewerke.</p>
+        </article>
+
+        <article class="service-card rounded-2xl p-8 reveal reveal-delay-1">
+          <div class="icon-wrap w-14 h-14 rounded-xl bg-accent-soft text-accent flex items-center justify-center"><i data-lucide="home" class="w-7 h-7"></i></div>
+          <h3 class="font-display text-xl font-bold mt-6" contenteditable="true">Hausanschlüsse</h3>
+          <p class="text-sm text-muted mt-3" contenteditable="true">Strom, Wasser, Gas, Glasfaser – von der Straße bis in den Hausanschlussraum. Sauber, präzise, abgenommen.</p>
+        </article>
+
+        <article class="service-card rounded-2xl p-8 reveal reveal-delay-2">
+          <div class="icon-wrap w-14 h-14 rounded-xl bg-accent-soft text-accent flex items-center justify-center"><i data-lucide="layers-3" class="w-7 h-7"></i></div>
+          <h3 class="font-display text-xl font-bold mt-6" contenteditable="true">Pflaster- &amp; Oberflächenbau</h3>
+          <p class="text-sm text-muted mt-3" contenteditable="true">Wiederherstellung von Geh- und Fahrbahnen nach Trassenarbeiten. Optisch nicht von der Originalfläche zu unterscheiden.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+  <!-- LEISTUNGEN END -->
+
+  <!-- ============================================================ -->
+  <!-- GALLERY — Baustellen-Impressionen (Mosaic)                  -->
+  <!-- ============================================================ -->
+  <section class="py-20 md:py-28 bg-ink text-white">
+    <div class="max-w-7xl mx-auto px-5 md:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 md:mb-16 reveal">
+        <div class="max-w-2xl">
+          <div class="text-xs font-semibold uppercase tracking-widest text-accent">Im Einsatz</div>
+          <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold mt-3 leading-[1.05]" contenteditable="true">Baustellen-Impressionen aus der Region.</h2>
+        </div>
+        <p class="text-white/70 max-w-md" contenteditable="true">Aktuelle Eindrücke unserer laufenden Glasfaser- und Tiefbauprojekte. Aufgenommen auf Baustellen in Hessen und Rheinland-Pfalz.</p>
+      </div>
+
+      <div class="grid grid-cols-12 gap-3 md:gap-5">
+        <!-- 🖼️ GALLERY BILD 1 (groß) — Glasfaser-Trasse mit Bagger/LKW -->
+        <a href="#kontakt" class="gallery-item col-span-12 md:col-span-7 rounded-2xl block aspect-[4/3] md:aspect-[16/11] reveal">
+          <img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ece?w=1400&q=85" alt="Trassentiefbau mit Bagger und Kipper" />
+          <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8 bg-gradient-to-t from-black/90 to-transparent">
+            <div class="text-xs uppercase tracking-widest text-white/70">Breitbandausbau</div>
+            <div class="font-display text-xl md:text-2xl font-semibold mt-1" contenteditable="true">Trassentiefbau mit Bagger &amp; Kipper</div>
+          </div>
+        </a>
+        <!-- 🖼️ GALLERY BILD 2 -->
+        <a href="#kontakt" class="gallery-item col-span-6 md:col-span-5 rounded-2xl block aspect-square md:aspect-[5/4] reveal reveal-delay-1">
+          <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=900&q=85" alt="Kabelverlegung im Trassengraben" />
+          <div class="absolute bottom-0 left-0 right-0 p-5 md:p-6 bg-gradient-to-t from-black/90 to-transparent">
+            <div class="text-xs uppercase tracking-widest text-white/70">Kabelverlegung</div>
+            <div class="font-display text-lg md:text-xl font-semibold mt-1" contenteditable="true">Mikrorohre &amp; Glasfaser</div>
+          </div>
+        </a>
+        <!-- 🖼️ GALLERY BILD 3 -->
+        <a href="#kontakt" class="gallery-item col-span-6 md:col-span-5 rounded-2xl block aspect-square md:aspect-[5/4] reveal reveal-delay-2">
+          <img src="https://images.unsplash.com/photo-1597844808175-fab7d6e80f47?w=900&q=85" alt="Glasfaser-Kabeltrommel" />
+          <div class="absolute bottom-0 left-0 right-0 p-5 md:p-6 bg-gradient-to-t from-black/90 to-transparent">
+            <div class="text-xs uppercase tracking-widest text-white/70">Glasfaser-Trommel</div>
+            <div class="font-display text-lg md:text-xl font-semibold mt-1" contenteditable="true">Einblas-Vorbereitung</div>
+          </div>
+        </a>
+        <!-- 🖼️ GALLERY BILD 4 (groß) -->
+        <a href="#kontakt" class="gallery-item col-span-12 md:col-span-7 rounded-2xl block aspect-[4/3] md:aspect-[16/11] reveal reveal-delay-3">
+          <img src="https://images.unsplash.com/photo-1590725140246-20acdee442be?w=1400&q=85" alt="Mobilbagger und Kipper im Einsatz" />
+          <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8 bg-gradient-to-t from-black/90 to-transparent">
+            <div class="text-xs uppercase tracking-widest text-white/70">Maschinenpark im Einsatz</div>
+            <div class="font-display text-xl md:text-2xl font-semibold mt-1" contenteditable="true">Mobilbagger &amp; Kipper</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+  <!-- GALLERY END -->
+
+  <!-- ============================================================ -->
+  <!-- ÜBER UNS                                                     -->
+  <!-- ============================================================ -->
+  <section id="ueber-uns" class="py-20 md:py-28 bg-surface-alt">
+    <div class="max-w-7xl mx-auto px-5 md:px-8 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <div class="lg:col-span-6 reveal">
+        <div class="grid grid-cols-2 gap-4">
+          <!-- 🖼️ ÜBER-UNS BILD 1 — Team auf der Baustelle -->
+          <div class="rounded-2xl overflow-hidden aspect-[4/5] shadow-xl">
+            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=700&q=85" alt="Kabakci-Team auf der Baustelle" class="w-full h-full object-cover" />
+          </div>
+          <!-- 🖼️ ÜBER-UNS BILD 2 — Bagger / Maschine -->
+          <div class="rounded-2xl overflow-hidden aspect-[4/5] mt-12 shadow-xl">
+            <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=700&q=85" alt="Bagger der Kabakci GmbH" class="w-full h-full object-cover" />
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-6 reveal reveal-delay-1">
+        <div class="text-xs font-semibold uppercase tracking-widest text-accent">Über uns</div>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold mt-3 leading-[1.05]" contenteditable="true">Familiengeführter Spezialbetrieb mit klarem Fokus.</h2>
+        <p class="text-lg text-muted mt-5" contenteditable="true">Die Kabakci GmbH steht für gewissenhaften Kabel- und Straßenbau in der Region Limburg, Hessen und Rheinland-Pfalz. Unser Team kennt jede Trasse, jede Bodenklasse und jede Anforderung von Netzbetreibern und Kommunen – aus jahrelanger Praxis.</p>
+        <p class="text-base text-muted mt-4" contenteditable="true">Wir setzen auf eigene Fachkräfte statt Subunternehmer, auf modernen Maschinenpark statt Mietgeräte, und auf saubere Baustellen statt schnelle Lösungen. Genau das macht uns zum verlässlichen Partner für anspruchsvolle Breitband- und Tiefbauprojekte.</p>
+        <div class="mt-8 grid grid-cols-2 gap-6">
+          <div><div class="font-display text-5xl font-bold text-accent" contenteditable="true">15+</div><div class="text-sm text-muted mt-1">Jahre Erfahrung</div></div>
+          <div><div class="font-display text-5xl font-bold text-accent" contenteditable="true">100%</div><div class="text-sm text-muted mt-1">Eigene Fachkräfte</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ÜBER UNS END -->
+
+  <!-- ============================================================ -->
+  <!-- MASCHINENPARK                                                -->
+  <!-- ============================================================ -->
+  <section id="maschinenpark" class="py-20 md:py-28">
+    <div class="max-w-7xl mx-auto px-5 md:px-8">
+      <div class="max-w-3xl reveal">
+        <div class="text-xs font-semibold uppercase tracking-widest text-accent">Maschinenpark</div>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold mt-3 leading-[1.05]" contenteditable="true">Eigene Technik. Maximale Verfügbarkeit.</h2>
+        <p class="text-lg text-muted mt-5" contenteditable="true">Vom Minibagger für den Hausanschluss bis zum Mercedes-Kipper für den Trassenaushub: Unser Fuhrpark ist auf Breitbandausbau und Tiefbau ausgelegt. Das bedeutet schnelle Reaktionszeiten und keine Wartezeit auf Subunternehmer-Maschinen.</p>
+      </div>
+
+      <div class="mt-14 grid md:grid-cols-3 gap-6">
+        <div class="reveal rounded-2xl overflow-hidden bg-white border border-default">
+          <div class="aspect-[4/3] overflow-hidden">
+            <!-- 🖼️ MASCHINE 1 — Bagger / Radlader -->
+            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=900&q=85" alt="Mobilbagger" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
+          </div>
+          <div class="p-6">
+            <h3 class="font-display text-xl font-semibold" contenteditable="true">Bagger &amp; Radlader</h3>
+            <p class="text-sm text-muted mt-2" contenteditable="true">Mini-, Mobil- und Kettenbagger für jede Trassenbreite und Bodenklasse.</p>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-1 rounded-2xl overflow-hidden bg-white border border-default">
+          <div class="aspect-[4/3] overflow-hidden">
+            <!-- 🖼️ MASCHINE 2 — LKW / Kipper -->
+            <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=900&q=85" alt="Kipper-LKW" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
+          </div>
+          <div class="p-6">
+            <h3 class="font-display text-xl font-semibold" contenteditable="true">LKW &amp; Kipper</h3>
+            <p class="text-sm text-muted mt-2" contenteditable="true">Mercedes-Flotte für Aushub-Abtransport, Materiallieferung und Verkehrssicherung.</p>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-2 rounded-2xl overflow-hidden bg-white border border-default">
+          <div class="aspect-[4/3] overflow-hidden">
+            <!-- 🖼️ MASCHINE 3 — Spezialgeräte -->
+            <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=900&q=85" alt="Spezialgerät auf Baustelle" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
+          </div>
+          <div class="p-6">
+            <h3 class="font-display text-xl font-semibold" contenteditable="true">Spezialgeräte</h3>
+            <p class="text-sm text-muted mt-2" contenteditable="true">Einblasanlagen, Rüttelplatten, Kabeltrommel-Anhänger, Spülbohrgeräte.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- MASCHINENPARK END -->
+
+  <!-- ============================================================ -->
+  <!-- ABLAUF                                                       -->
+  <!-- ============================================================ -->
+  <section id="ablauf" class="py-20 md:py-28 bg-surface-alt">
+    <div class="max-w-7xl mx-auto px-5 md:px-8">
+      <div class="max-w-3xl reveal">
+        <div class="text-xs font-semibold uppercase tracking-widest text-accent">Ablauf</div>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold mt-3 leading-[1.05]" contenteditable="true">Von der Anfrage bis zur Abnahme – in vier klaren Phasen.</h2>
+      </div>
+
+      <div class="mt-14 grid md:grid-cols-4 gap-8 md:gap-6">
+        <div class="reveal">
+          <div class="w-16 h-16 rounded-full bg-accent text-white flex items-center justify-center font-display text-2xl font-bold shadow-lg">01</div>
+          <h3 class="font-display text-xl font-semibold mt-5" contenteditable="true">Anfrage &amp; Beratung</h3>
+          <p class="text-sm text-muted mt-2" contenteditable="true">Sie schildern uns Ihr Projekt – wir prüfen Machbarkeit, Bodenverhältnisse und Genehmigungslage.</p>
+        </div>
+        <div class="reveal reveal-delay-1">
+          <div class="w-16 h-16 rounded-full bg-white border-2 border-default flex items-center justify-center font-display text-2xl font-bold">02</div>
+          <h3 class="font-display text-xl font-semibold mt-5" contenteditable="true">Planung &amp; Angebot</h3>
+          <p class="text-sm text-muted mt-2" contenteditable="true">Detaillierte Trassenplanung, transparentes Festpreis-Angebot, verbindlicher Zeitplan.</p>
+        </div>
+        <div class="reveal reveal-delay-2">
+          <div class="w-16 h-16 rounded-full bg-white border-2 border-default flex items-center justify-center font-display text-2xl font-bold">03</div>
+          <h3 class="font-display text-xl font-semibold mt-5" contenteditable="true">Ausführung</h3>
+          <p class="text-sm text-muted mt-2" contenteditable="true">Tiefbau, Kabel-/Leerrohrverlegung, Einblasen, Hausanschlüsse – durch unsere eigenen Kolonnen.</p>
+        </div>
+        <div class="reveal reveal-delay-3">
+          <div class="w-16 h-16 rounded-full bg-white border-2 border-default flex items-center justify-center font-display text-2xl font-bold">04</div>
+          <h3 class="font-display text-xl font-semibold mt-5" contenteditable="true">Abnahme &amp; Doku</h3>
+          <p class="text-sm text-muted mt-2" contenteditable="true">Oberflächenwiederherstellung, gemeinsame Abnahme, vollständige Bestandsdokumentation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ABLAUF END -->
+
+  <!-- ============================================================ -->
+  <!-- REFERENZEN — mit Background-Image                            -->
+  <!-- ============================================================ -->
+  <section id="referenzen" class="relative py-24 md:py-32 overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <!-- 🖼️ REFERENZEN-HINTERGRUND -->
+      <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1800&q=85" alt="" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-ink opacity-90"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-5 md:px-8">
+      <div class="text-center max-w-3xl mx-auto reveal">
+        <div class="text-xs font-semibold uppercase tracking-widest text-accent">Referenzen</div>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold mt-3 text-white leading-[1.05]" contenteditable="true">Im Auftrag der wichtigsten Netzbetreiber Deutschlands.</h2>
+        <p class="text-lg text-white/80 mt-5" contenteditable="true">Wir realisieren Breitbandausbau für die führenden Telekommunikationsunternehmen und Kommunen in Hessen und Rheinland-Pfalz.</p>
+      </div>
+
+      <div class="mt-14 flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
+        <span class="font-display text-2xl md:text-3xl font-bold text-white/80" contenteditable="true">Deutsche Telekom</span>
+        <span class="text-white/30 text-2xl">·</span>
+        <span class="font-display text-2xl md:text-3xl font-bold text-white/80" contenteditable="true">Deutsche Glasfaser</span>
+        <span class="text-white/30 text-2xl">·</span>
+        <span class="font-display text-2xl md:text-3xl font-bold text-white/80" contenteditable="true">Vodafone</span>
+        <span class="text-white/30 text-2xl">·</span>
+        <span class="font-display text-2xl md:text-3xl font-bold text-white/80" contenteditable="true">EnBW</span>
+        <span class="text-white/30 text-2xl">·</span>
+        <span class="font-display text-2xl md:text-3xl font-bold text-white/80" contenteditable="true">Stadtwerke Limburg</span>
+      </div>
+
+      <div class="mt-14 text-center">
+        <a href="#kontakt" class="btn-primary inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold">
+          Eigenes Projekt anfragen <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+  <!-- REFERENZEN END -->
+
+  <!-- ============================================================ -->
+  <!-- KARRIERE                                                     -->
+  <!-- ============================================================ -->
+  <section id="karriere" class="py-20 md:py-28">
+    <div class="max-w-7xl mx-auto px-5 md:px-8 grid lg:grid-cols-12 gap-12">
+      <div class="lg:col-span-5 reveal">
+        <div class="text-xs font-semibold uppercase tracking-widest text-accent">Karriere</div>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold mt-3 leading-[1.05]" contenteditable="true">Wir suchen Verstärkung.</h2>
+        <p class="text-lg text-muted mt-5" contenteditable="true">Krisensicherer Arbeitsplatz, faire Vergütung, modernes Equipment, kollegiales Team. Bei Kabakci arbeitest du nicht für, sondern mit den Geschäftsführern.</p>
+        <a href="#kontakt" class="btn-primary inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold mt-6">Initiativ bewerben <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+      </div>
+
+      <div class="lg:col-span-7 space-y-4">
+        <div class="reveal bg-white rounded-xl p-6 border border-default flex items-center justify-between gap-4 hover:border-accent transition group">
+          <div><h3 class="font-display text-lg font-semibold" contenteditable="true">Facharbeiter Tief- &amp; Straßenbau (m/w/d)</h3><p class="text-sm text-muted mt-1">Vollzeit · Limburg a. d. Lahn</p></div>
+          <a href="#kontakt" class="shrink-0 w-11 h-11 rounded-full border border-default flex items-center justify-center group-hover:bg-accent group-hover:text-white group-hover:border-accent transition"><i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+        </div>
+        <div class="reveal reveal-delay-1 bg-white rounded-xl p-6 border border-default flex items-center justify-between gap-4 hover:border-accent transition group">
+          <div><h3 class="font-display text-lg font-semibold" contenteditable="true">Kabelverleger / Einblastechniker (m/w/d)</h3><p class="text-sm text-muted mt-1">Vollzeit · Limburg a. d. Lahn</p></div>
+          <a href="#kontakt" class="shrink-0 w-11 h-11 rounded-full border border-default flex items-center justify-center group-hover:bg-accent group-hover:text-white group-hover:border-accent transition"><i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+        </div>
+        <div class="reveal reveal-delay-2 bg-white rounded-xl p-6 border border-default flex items-center justify-between gap-4 hover:border-accent transition group">
+          <div><h3 class="font-display text-lg font-semibold" contenteditable="true">Bau- / Projektleiter Breitbandausbau (m/w/d)</h3><p class="text-sm text-muted mt-1">Vollzeit · Hessen / RLP · Firmenwagen</p></div>
+          <a href="#kontakt" class="shrink-0 w-11 h-11 rounded-full border border-default flex items-center justify-center group-hover:bg-accent group-hover:text-white group-hover:border-accent transition"><i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+        </div>
+        <div class="reveal reveal-delay-3 bg-white rounded-xl p-6 border border-default flex items-center justify-between gap-4 hover:border-accent transition group">
+          <div><h3 class="font-display text-lg font-semibold" contenteditable="true">Baumaschinenführer / LKW-Fahrer (m/w/d)</h3><p class="text-sm text-muted mt-1">Vollzeit · Limburg a. d. Lahn</p></div>
+          <a href="#kontakt" class="shrink-0 w-11 h-11 rounded-full border border-default flex items-center justify-center group-hover:bg-accent group-hover:text-white group-hover:border-accent transition"><i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- KARRIERE END -->
+
+  <!-- ============================================================ -->
+  <!-- FAQ                                                          -->
+  <!-- ============================================================ -->
+  <section id="faq" class="py-20 md:py-28 bg-surface-alt">
+    <div class="max-w-4xl mx-auto px-5 md:px-8">
+      <div class="text-center reveal">
+        <div class="text-xs font-semibold uppercase tracking-widest text-accent">FAQ</div>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold mt-3 leading-[1.05]" contenteditable="true">Häufige Fragen.</h2>
+      </div>
+
+      <div class="mt-12 space-y-3">
+        <details class="faq-item reveal bg-white rounded-xl border border-default p-6">
+          <summary class="flex items-center justify-between gap-4">
+            <span class="font-display text-lg font-semibold" contenteditable="true">In welchen Regionen ist die Kabakci GmbH tätig?</span>
+            <span class="faq-icon shrink-0 w-9 h-9 rounded-full bg-surface-alt flex items-center justify-center"><i data-lucide="plus" class="w-4 h-4"></i></span>
+          </summary>
+          <p class="text-muted mt-4" contenteditable="true">Schwerpunktmäßig in Limburg a. d. Lahn, dem gesamten Raum Hessen sowie angrenzenden Gebieten in Rheinland-Pfalz. Für Großprojekte mit Netzbetreibern sind wir bundesweit verfügbar.</p>
+        </details>
+        <details class="faq-item reveal reveal-delay-1 bg-white rounded-xl border border-default p-6">
+          <summary class="flex items-center justify-between gap-4">
+            <span class="font-display text-lg font-semibold" contenteditable="true">Übernehmen Sie auch die Hausanschluss-Montage?</span>
+            <span class="faq-icon shrink-0 w-9 h-9 rounded-full bg-surface-alt flex items-center justify-center"><i data-lucide="plus" class="w-4 h-4"></i></span>
+          </summary>
+          <p class="text-muted mt-4" contenteditable="true">Ja. Von der Straße bis in den Hausanschlussraum: Tiefbau, Mantelrohr, Einblasen der Glasfaser, Splice-Box-Montage. Alles aus einer Hand, ein Ansprechpartner für den Eigentümer.</p>
+        </details>
+        <details class="faq-item reveal reveal-delay-2 bg-white rounded-xl border border-default p-6">
+          <summary class="flex items-center justify-between gap-4">
+            <span class="font-display text-lg font-semibold" contenteditable="true">Welche Bauverfahren setzen Sie ein?</span>
+            <span class="faq-icon shrink-0 w-9 h-9 rounded-full bg-surface-alt flex items-center justify-center"><i data-lucide="plus" class="w-4 h-4"></i></span>
+          </summary>
+          <p class="text-muted mt-4" contenteditable="true">Offene Bauweise (klassischer Trassentiefbau), Mini-Trenching, Spülbohrung (HDD), Erdrakete sowie Kabelpflug-Einsatz. Wir wählen das Verfahren passend zu Bodenklasse, Oberfläche und Genehmigungslage.</p>
+        </details>
+        <details class="faq-item reveal reveal-delay-3 bg-white rounded-xl border border-default p-6">
+          <summary class="flex items-center justify-between gap-4">
+            <span class="font-display text-lg font-semibold" contenteditable="true">Wie schnell erhalte ich ein Angebot?</span>
+            <span class="faq-icon shrink-0 w-9 h-9 rounded-full bg-surface-alt flex items-center justify-center"><i data-lucide="plus" class="w-4 h-4"></i></span>
+          </summary>
+          <p class="text-muted mt-4" contenteditable="true">Nach Erstgespräch und ggf. Vor-Ort-Termin liefern wir das Angebot in der Regel innerhalb von 5–10 Werktagen – inklusive Festpreis, Bauphasenplan und voraussichtlichem Ausführungstermin.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+  <!-- FAQ END -->
+
+  <!-- ============================================================ -->
+  <!-- KONTAKT                                                      -->
+  <!-- ============================================================ -->
+  <section id="kontakt" class="py-20 md:py-28">
+    <div class="max-w-7xl mx-auto px-5 md:px-8">
+      <div class="bg-white rounded-3xl shadow-xl overflow-hidden grid lg:grid-cols-2 border border-default">
+        <div class="p-8 md:p-12 lg:p-16">
+          <div class="text-xs font-semibold uppercase tracking-widest text-accent">Kontakt</div>
+          <h2 class="font-display text-4xl md:text-5xl font-bold mt-3 leading-[1.05]" contenteditable="true">Lassen Sie uns Ihr Projekt besprechen.</h2>
+          <p class="text-lg text-muted mt-4" contenteditable="true">Ob Ausschreibung, Direktauftrag oder Bauträger-Anfrage – wir melden uns innerhalb eines Werktages mit einer ersten Einschätzung.</p>
+
+          <div class="mt-10 space-y-5">
+            <!-- 📞 TELEFON -->
+            <a href="tel:+4964319999999" class="flex items-center gap-4 group">
+              <div class="w-12 h-12 rounded-full bg-accent-soft flex items-center justify-center group-hover:bg-accent transition"><i data-lucide="phone" class="w-5 h-5 text-accent group-hover:text-white"></i></div>
+              <div><div class="text-xs text-muted uppercase tracking-widest">Telefon</div><div class="font-display text-lg font-semibold" contenteditable="true">06431 / 999 999</div></div>
+            </a>
+            <!-- 📧 E-MAIL -->
+            <a href="mailto:info@kabakci-gmbh.de" class="flex items-center gap-4 group">
+              <div class="w-12 h-12 rounded-full bg-accent-soft flex items-center justify-center group-hover:bg-accent transition"><i data-lucide="mail" class="w-5 h-5 text-accent group-hover:text-white"></i></div>
+              <div><div class="text-xs text-muted uppercase tracking-widest">E-Mail</div><div class="font-display text-lg font-semibold" contenteditable="true">info@kabakci-gmbh.de</div></div>
+            </a>
+            <!-- 📍 ADRESSE -->
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-full bg-accent-soft flex items-center justify-center"><i data-lucide="map-pin" class="w-5 h-5 text-accent"></i></div>
+              <div><div class="text-xs text-muted uppercase tracking-widest">Adresse</div><div class="font-display text-lg font-semibold" contenteditable="true">Koblenzer Str. 62, 65556 Limburg a. d. Lahn</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-ink text-white p-8 md:p-12 lg:p-16">
+          <h3 class="font-display text-2xl font-bold">Anfrage senden</h3>
+          <form class="mt-6 space-y-4" onsubmit="event.preventDefault(); alert('Formular-Demo – noch nicht angeschlossen.');">
+            <div class="grid grid-cols-2 gap-3">
+              <input type="text" placeholder="Vorname" class="bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-white/50 focus:outline-none focus:border-accent transition" />
+              <input type="text" placeholder="Nachname" class="bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-white/50 focus:outline-none focus:border-accent transition" />
+            </div>
+            <input type="email" placeholder="E-Mail" class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-white/50 focus:outline-none focus:border-accent transition" />
+            <input type="tel" placeholder="Telefon (optional)" class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-white/50 focus:outline-none focus:border-accent transition" />
+            <select class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-accent transition">
+              <option style="background:#1c1917">Leistung wählen…</option>
+              <option style="background:#1c1917">Breitband-/Glasfaserausbau</option>
+              <option style="background:#1c1917">Kabel- &amp; Leitungsbau</option>
+              <option style="background:#1c1917">Straßen-/Tiefbau</option>
+              <option style="background:#1c1917">Hausanschluss</option>
+              <option style="background:#1c1917">Karriere / Bewerbung</option>
+              <option style="background:#1c1917">Sonstiges</option>
+            </select>
+            <textarea rows="4" placeholder="Ihre Nachricht" class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-white/50 focus:outline-none focus:border-accent transition"></textarea>
+            <button type="submit" class="btn-primary w-full px-6 py-3.5 rounded-full font-semibold inline-flex items-center justify-center gap-2">
+              Anfrage senden <i data-lucide="send" class="w-4 h-4"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- KONTAKT END -->
+
+</main>
+
+<!-- ============================================================ -->
+<!-- FOOTER                                                       -->
+<!-- ============================================================ -->
+<footer class="bg-ink text-stone-300 pt-16 pb-8">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+    <div class="grid md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+      <div class="md:col-span-2">
+        <!-- Footer-Logo (weiß) -->
+        <svg viewBox="0 0 420 140" class="h-16 w-auto" xmlns="http://www.w3.org/2000/svg">
+          <text x="210" y="30" text-anchor="middle" font-family="Antonio, sans-serif" font-size="19" font-weight="500" fill="#ffffff" letter-spacing="4">KABEL- &amp; STRASSENBAU</text>
+          <line x1="40" y1="44" x2="380" y2="44" stroke="#a8a29e" stroke-width="2" stroke-dasharray="7 5"/>
+          <text x="200" y="108" text-anchor="middle" font-family="Antonio, sans-serif" font-size="76" font-weight="700" fill="#e30613" letter-spacing="3">KABAKCI</text>
+          <text x="400" y="125" text-anchor="end" font-family="Antonio, sans-serif" font-size="20" font-weight="500" fill="#ffffff">GmbH</text>
+        </svg>
+        <p class="text-sm mt-6 max-w-md">Familiengeführter Spezialbetrieb für Breitbandausbau, Kabel- und Straßenbau in Limburg, Hessen &amp; Rheinland-Pfalz.</p>
+      </div>
+      <div>
+        <h4 class="font-display text-white font-semibold mb-4">Leistungen</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#leistungen" class="hover:text-white transition">Breitbandausbau</a></li>
+          <li><a href="#leistungen" class="hover:text-white transition">Kabel- &amp; Leitungsbau</a></li>
+          <li><a href="#leistungen" class="hover:text-white transition">Straßen- &amp; Tiefbau</a></li>
+          <li><a href="#leistungen" class="hover:text-white transition">Hausanschlüsse</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-display text-white font-semibold mb-4">Unternehmen</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#ueber-uns" class="hover:text-white transition">Über uns</a></li>
+          <li><a href="#maschinenpark" class="hover:text-white transition">Maschinenpark</a></li>
+          <li><a href="#karriere" class="hover:text-white transition">Karriere</a></li>
+          <li><a href="#kontakt" class="hover:text-white transition">Kontakt</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- IMPRESSUM -->
+    <div class="py-8 grid md:grid-cols-3 gap-6 text-xs text-stone-400 border-b border-white/10">
+      <div>
+        <div class="text-white font-semibold mb-1">Kabel- und Straßenbau Kabakci GmbH</div>
+        <div>Koblenzer Str. 62</div>
+        <div>D-65556 Limburg a. d. Lahn</div>
+      </div>
+      <div>
+        <div class="text-white font-semibold mb-1">Registereintrag</div>
+        <div>Amtsgericht Limburg a. d. Lahn</div>
+        <div>HRB 5367 · EUID DEM1706.HRB5367</div>
+      </div>
+      <div>
+        <div class="text-white font-semibold mb-1">Geschäftsgegenstand</div>
+        <div>Kabel- und Straßenbau</div>
+      </div>
+    </div>
+
+    <div class="pt-8 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs text-stone-400">
+      <div>© <span id="year"></span> Kabakci GmbH. Alle Rechte vorbehalten.</div>
+      <div class="flex gap-6">
+        <a href="#" class="hover:text-white transition">Impressum</a>
+        <a href="#" class="hover:text-white transition">Datenschutz</a>
+        <a href="#" class="hover:text-white transition">AGB</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Lucide-Icons mit Safety-Check
+  function renderIcons() {
+    if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
+    else setTimeout(renderIcons, 50);
+  }
+  renderIcons();
+
+  // Footer-Jahr
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Mobile Menu
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  menuToggle.addEventListener('click', () => mobileMenu.classList.toggle('hidden-menu'));
+  mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden-menu')));
+
+  // Header on Scroll
+  const header = document.getElementById('site-header');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) header.classList.add('header-scrolled');
+    else header.classList.remove('header-scrolled');
+  });
+
+  // Scroll-Reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
