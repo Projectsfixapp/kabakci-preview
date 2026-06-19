@@ -15,6 +15,8 @@
   })();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -354,6 +356,21 @@
         </a>
       </div>
     </div>
+  </section>
+  <section id="bagger-animation" class="relative min-h-screen flex items-center bg-white overflow-hidden">
+    <div class="max-w-7xl mx-auto px-5 md:px-8 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center py-20">
+      <div class="lg:col-span-5 reveal">
+        <div class="text-xs font-semibold uppercase tracking-widest text-accent">Maschinenpark</div>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold mt-3 leading-[1.05]" contenteditable="true">Präzision in jeder Bewegung.</h2>
+        <p class="text-lg text-muted mt-5" contenteditable="true">Ob enge Trasse oder schwerer Boden – unsere Mobilbagger arbeiten exakt auf den Zentimeter. Das spart Zeit, schont die Oberfläche und hält den Bauablauf im Plan.</p>
+      </div>
+      <div class="lg:col-span-7">
+        <div class="relative w-full aspect-[4/3] md:aspect-[16/11]">
+          <canvas id="excavator-canvas" class="absolute inset-0 w-full h-full"></canvas>
+        </div>
+      </div>
+    </div>
+    <video id="excavator-video" src="Animation-Bild_Startframe_Bild_End.mp4" muted playsinline preload="auto" style="position:absolute; width:1px; height:1px; opacity:0; pointer-events:none;"></video>
   </section>
   <section id="ueber-uns" class="py-20 md:py-28 bg-surface-alt">
     <div class="max-w-7xl mx-auto px-5 md:px-8 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -704,6 +721,129 @@
     });
   }, { threshold: 0.1 });
   revealEls.forEach(el => observer.observe(el));
+
+  // Bagger-Scroll-Animation: Video auf Canvas zeichnen, weißen Hintergrund per Farbabstand freistellen
+  (function () {
+    const section = document.getElementById('bagger-animation');
+    const video = document.getElementById('excavator-video');
+    const canvas = document.getElementById('excavator-canvas');
+    if (!section || !video || !canvas) return;
+
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    const MAX_CANVAS_WIDTH = 640; // bewusst gecappt, nicht volle devicePixelRatio (Performance auf Mobile/altem Android)
+    const KEY_THRESHOLD = 60; // Distanz zu reinweiß, ab der ein Pixel transparent wird
+    const KEY_FEATHER = 40; // weicher Übergangsbereich, um harte Kanten/Halo zu vermeiden
+    const THRESHOLD_SQ = KEY_THRESHOLD * KEY_THRESHOLD;
+    const OUTER_SQ = (KEY_THRESHOLD + KEY_FEATHER) * (KEY_THRESHOLD + KEY_FEATHER);
+
+    function sizeCanvas() {
+      if (!video.videoWidth) return;
+      const w = Math.min(MAX_CANVAS_WIDTH, video.videoWidth);
+      const h = Math.round(w * (video.videoHeight / video.videoWidth));
+      canvas.width = w;
+      canvas.height = h;
+    }
+
+    function keyOutWhite(data) {
+      for (let i = 0; i < data.length; i += 4) {
+        const dr = 255 - data[i], dg = 255 - data[i + 1], db = 255 - data[i + 2];
+        const distSq = dr * dr + dg * dg + db * db;
+        if (distSq < THRESHOLD_SQ) {
+          data[i + 3] = 0;
+        } else if (distSq < OUTER_SQ) {
+          data[i + 3] = Math.round(255 * (Math.sqrt(distSq) - KEY_THRESHOLD) / KEY_FEATHER);
+        }
+      }
+    }
+
+    function drawKeyedFrame() {
+      if (video.readyState < 1 || !canvas.width) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      keyOutWhite(frame.data);
+      ctx.putImageData(frame, 0, 0);
+    }
+
+    // Seeks im Video sind langsamer als der Scroll-Tick (~60fps). Ohne Drosselung
+    // "verschluckt" der Browser neue currentTime-Sprünge, bevor der alte Seek fertig ist,
+    // und das Canvas friert auf einem alten Frame ein. Deshalb: immer nur ein Seek aktiv,
+    // der jeweils neueste gewünschte Zeitpunkt wird gemerkt und nach "seeked" nachgeholt.
+    function initDesktopScrub() {
+      let seeking = false;
+      let pendingTime = null;
+
+      function applySeek(t) {
+        if (seeking) { pendingTime = t; return; }
+        seeking = true;
+        video.currentTime = t;
+      }
+
+      function onSeeked() {
+        seeking = false;
+        drawKeyedFrame();
+        if (pendingTime !== null) {
+          const t = pendingTime;
+          pendingTime = null;
+          applySeek(t);
+        }
+      }
+      video.addEventListener('seeked', onSeeked);
+
+      const proxy = { t: 0 };
+      const tween = gsap.to(proxy, {
+        t: video.duration || 1,
+        ease: 'none',
+        onUpdate: () => applySeek(proxy.t),
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: () => '+=' + window.innerHeight * 1.2,
+          scrub: 1,
+          pin: true,
+          invalidateOnRefresh: true
+        }
+      });
+      return () => { video.removeEventListener('seeked', onSeeked); tween.scrollTrigger && tween.scrollTrigger.kill(); tween.kill(); };
+    }
+
+    function initMobilePlayOnce() {
+      let played = false;
+      let rafId = null;
+
+      function loop() {
+        drawKeyedFrame();
+        if (!video.paused && !video.ended) rafId = requestAnimationFrame(loop);
+      }
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !played) {
+            played = true;
+            video.play().then(loop).catch(() => {});
+            io.disconnect();
+          }
+        });
+      }, { threshold: 0.4 });
+      io.observe(section);
+
+      return () => { io.disconnect(); if (rafId) cancelAnimationFrame(rafId); };
+    }
+
+    function start() {
+      sizeCanvas();
+      drawKeyedFrame();
+      gsap.registerPlugin(ScrollTrigger);
+      ScrollTrigger.matchMedia({
+        '(min-width: 768px)': initDesktopScrub,
+        '(max-width: 767px)': initMobilePlayOnce
+      });
+      window.addEventListener('resize', sizeCanvas);
+    }
+
+    if (video.readyState >= 1) start();
+    else video.addEventListener('loadedmetadata', start, { once: true });
+  })();
 </script>
 
 </body>
