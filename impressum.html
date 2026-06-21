@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Impressum | Kabakci GmbH</title>
+<meta name="robots" content="noindex" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --color-bg: #fafaf9;
+    --color-text: #1c1917;
+    --color-text-muted: #57534e;
+    --color-border: #e7e5e4;
+    --color-accent: #e30613;
+    --font-display: 'Antonio', 'Inter', sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+  }
+  body { background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); line-height: 1.6; }
+  .font-display { font-family: var(--font-display); letter-spacing: -0.01em; }
+  .text-accent { color: var(--color-accent); }
+  .text-muted { color: var(--color-text-muted); }
+  .border-default { border-color: var(--color-border); }
+  .todo { background: rgba(227,6,19,.08); border: 1px dashed var(--color-accent); color: var(--color-accent); padding: 2px 8px; border-radius: 6px; font-size: 0.85em; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header class="border-b border-default bg-white">
+  <div class="max-w-3xl mx-auto px-5 md:px-8 py-6 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2 text-sm font-semibold text-muted hover:text-accent transition">
+      ← Zurück zur Startseite
+    </a>
+    <img src="image.png" alt="Kabakci GmbH Logo" class="h-10 w-auto object-contain" />
+  </div>
+</header>
+
+<main class="max-w-3xl mx-auto px-5 md:px-8 py-16 md:py-20">
+  <h1 class="font-display text-4xl md:text-5xl font-bold leading-[1.15]">Impressum</h1>
+  <p class="text-sm text-muted mt-2">Angaben gemäß § 5 TMG</p>
+
+  <section class="mt-10">
+    <h2 class="font-display text-xl font-semibold">Diensteanbieter</h2>
+    <p class="mt-2">
+      Kabel- und Straßenbau Kabakci GmbH<br />
+      Koblenzer Str. 62<br />
+      D-65556 Limburg a. d. Lahn
+    </p>
+  </section>
+
+  <section class="mt-8">
+    <h2 class="font-display text-xl font-semibold">Vertreten durch</h2>
+    <p class="mt-2">
+      Geschäftsführer: Ismail Kabakci
+    </p>
+  </section>
+
+  <section class="mt-8">
+    <h2 class="font-display text-xl font-semibold">Kontakt</h2>
+    <p class="mt-2">
+      Telefon: 06431 / 999 999<br />
+      E-Mail: info@kabakci-gmbh.de
+    </p>
+  </section>
+
+  <section class="mt-8">
+    <h2 class="font-display text-xl font-semibold">Registereintrag</h2>
+    <p class="mt-2">
+      Eintragung im Handelsregister.<br />
+      Registergericht: Amtsgericht Limburg a. d. Lahn<br />
+      Registernummer: HRB 5367 · EUID: DEM1706.HRB5367
+    </p>
+  </section>
+
+  <section class="mt-8">
+    <h2 class="font-display text-xl font-semibold">Umsatzsteuer-Identifikationsnummer</h2>
+    <p class="mt-2">
+      <span class="todo">TODO: USt-IdNr. gemäß §27a Umsatzsteuergesetz eintragen (falls vorhanden)</span>
+    </p>
+  </section>
+
+  <section class="mt-8">
+    <h2 class="font-display text-xl font-semibold">Geschäftsgegenstand</h2>
+    <p class="mt-2">Kabel- und Straßenbau</p>
+  </section>
+
+  <section class="mt-8">
+    <h2 class="font-display text-xl font-semibold">Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+    <p class="mt-2">
+      Ismail Kabakci<br />
+      Koblenzer Str. 62, D-65556 Limburg a. d. Lahn
+    </p>
+  </section>
+
+  <section class="mt-8">
+    <h2 class="font-display text-xl font-semibold">EU-Streitschlichtung</h2>
+    <p class="mt-2 text-sm text-muted">
+      Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: https://ec.europa.eu/consumers/odr/.
+      Unsere E-Mail-Adresse finden Sie oben im Impressum.
+    </p>
+  </section>
+</main>
+
+<footer class="border-t border-default py-8">
+  <div class="max-w-3xl mx-auto px-5 md:px-8 text-xs text-muted flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div>© <span id="year"></span> Kabakci GmbH. Alle Rechte vorbehalten.</div>
+    <a href="index.html" class="hover:text-accent transition">Zur Startseite</a>
+  </div>
+</footer>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
+</body>
+</html>

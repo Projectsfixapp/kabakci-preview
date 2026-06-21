@@ -103,7 +103,7 @@
   .gallery-item:hover img { transform: scale(1.06); }
 
   /* Mobile menu */
-  #mobile-menu { transition: transform .35s ease, opacity .35s ease; }
+  #mobile-menu { position: absolute; top: 100%; left: 0; right: 0; transition: transform .35s ease, opacity .35s ease; }
   #mobile-menu.hidden-menu { transform: translateY(-12px); opacity: 0; pointer-events: none; }
 
   /* FAQ */
@@ -113,18 +113,17 @@
   .faq-icon { transition: transform .3s ease, background .3s ease, color .3s ease; }
 
   /* Header */
-  #site-header { transition: background .3s ease, box-shadow .3s ease, padding .3s ease; }
+  #site-header { transition: background .3s ease, box-shadow .3s ease; }
   #site-header .nav-link { color: rgba(255,255,255,.85); }
   #site-header .nav-link:hover { color: #fff; }
   #site-header .header-phone { color: #fff; }
   #site-header .header-phone:hover { color: var(--color-accent); }
-  #site-header .menu-icon { color: #fff; }
+  #site-header .menu-icon { color: var(--color-accent); }
 
   .header-scrolled { background: #ffffff; box-shadow: 0 1px 0 var(--color-border); }
-  .header-scrolled .nav-link { color: var(--color-text-muted); }
-  .header-scrolled .nav-link:hover { color: var(--color-accent); }
-  .header-scrolled .header-phone { color: var(--color-text); }
-  .header-scrolled .menu-icon { color: #1c1917; }
+  #site-header.header-scrolled .nav-link { color: var(--color-text-muted); }
+  #site-header.header-scrolled .nav-link:hover { color: var(--color-accent); }
+  #site-header.header-scrolled .header-phone { color: var(--color-text); }
 
   .hero-grid {
     background-image:
@@ -199,7 +198,7 @@
           <span class="w-2 h-2 rounded-full bg-accent pulse-dot"></span>
           <span contenteditable="true">Spezialist für Breitbandausbau · Hessen &amp; Rheinland-Pfalz</span>
         </div>
-        <h1 class="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[88px] font-bold leading-[0.95] tracking-tight text-white reveal reveal-delay-1" contenteditable="true">
+        <h1 class="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[88px] font-bold leading-[1.1] tracking-tight text-white reveal reveal-delay-1" contenteditable="true">
           Glasfaser bis ins Haus.<br/>
           <span class="text-accent">Tiefbau mit System.</span>
         </h1>
@@ -375,25 +374,31 @@
   <section id="ueber-uns" class="py-20 md:py-28 bg-surface-alt">
     <div class="max-w-7xl mx-auto px-5 md:px-8 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
       <div class="lg:col-span-6 reveal">
-        <div class="grid grid-cols-2 gap-4">
-          <div class="rounded-2xl overflow-hidden aspect-[4/5] shadow-xl">
-            <img src="image_2.png" alt="Kabakci-Team auf der Baustelle" class="w-full h-full object-cover" loading="lazy" />
-          </div>
-          <div class="rounded-2xl overflow-hidden aspect-[4/5] mt-12 shadow-xl">
-            <img src="image_3.png" alt="Bagger der Kabakci GmbH" class="w-full h-full object-cover" loading="lazy" />
-          </div>
+        <div class="rounded-2xl overflow-hidden aspect-[4/3] shadow-xl">
+          <img src="Firma.png" alt="Kabakci GmbH Firmenportrait" class="w-full h-full object-cover" loading="lazy" />
         </div>
       </div>
 
       <div class="lg:col-span-6 reveal reveal-delay-1">
         <div class="text-xs font-semibold uppercase tracking-widest text-accent">Über uns</div>
-        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold mt-3 leading-[1.05]" contenteditable="true">Familiengeführter Spezialbetrieb mit klarem Fokus.</h2>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold mt-3 leading-[1.2]" contenteditable="true">Familiengeführter Spezialbetrieb mit klarem Fokus.</h2>
         <p class="text-lg text-muted mt-5" contenteditable="true">Die Kabakci GmbH steht für gewissenhaften Kabel- und Straßenbau in der Region Limburg, Hessen und Rheinland-Pfalz. Unser Team kennt jede Trasse, jede Bodenklasse und jede Anforderung von Netzbetreibern und Kommunen – aus jahrelanger Praxis.</p>
         <p class="text-base text-muted mt-4" contenteditable="true">Wir setzen auf eigene Fachkräfte statt Subunternehmer, auf modernen Maschinenpark statt Mietgeräte, und auf saubere Baustellen statt schnelle Lösungen. Genau das macht uns zum verlässlichen Partner für anspruchsvolle Breitband- und Tiefbauprojekte.</p>
         <div class="mt-8 grid grid-cols-2 gap-6">
           <div><div class="font-display text-5xl font-bold text-accent" contenteditable="true">15+</div><div class="text-sm text-muted mt-1">Jahre Erfahrung</div></div>
           <div><div class="font-display text-5xl font-bold text-accent" contenteditable="true">100%</div><div class="text-sm text-muted mt-1">Eigene Fachkräfte</div></div>
         </div>
+      </div>
+    </div>
+  </section>
+  <section class="py-20 md:py-28 bg-ink">
+    <div class="max-w-5xl mx-auto px-5 md:px-8 text-center reveal">
+      <div class="text-xs font-semibold uppercase tracking-widest text-accent">Kabakci GmbH Video</div>
+      <h2 class="font-display text-4xl md:text-5xl font-bold mt-3 text-white leading-[1.15]" contenteditable="true">Unser Unternehmen im Film.</h2>
+      <div class="mt-10 rounded-2xl overflow-hidden shadow-2xl border border-white/10">
+        <video class="w-full h-full" controls preload="metadata" poster="image_5.png" src="kabakci-gmbh-video.mp4">
+          Ihr Browser unterstützt das Video-Element nicht.
+        </video>
       </div>
     </div>
   </section>
@@ -667,7 +672,7 @@
     <div class="pt-8 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs text-stone-400">
       <div>© <span id="year"></span> Kabakci GmbH. Alle Rechte vorbehalten.</div>
       <div class="flex gap-6">
-        <a href="#" class="hover:text-white transition">Impressum</a>
+        <a href="impressum.html" class="hover:text-white transition">Impressum</a>
         <a href="#" class="hover:text-white transition">Datenschutz</a>
         <a href="#" class="hover:text-white transition">AGB</a>
       </div>
@@ -765,69 +770,89 @@
       ctx.putImageData(frame, 0, 0);
     }
 
-    // Seeks im Video sind langsamer als der Scroll-Tick (~60fps). Ohne Drosselung
-    // "verschluckt" der Browser neue currentTime-Sprünge, bevor der alte Seek fertig ist,
-    // und das Canvas friert auf einem alten Frame ein. Deshalb: immer nur ein Seek aktiv,
-    // der jeweils neueste gewünschte Zeitpunkt wird gemerkt und nach "seeked" nachgeholt.
+    // Desktop: das Quellvideo lässt sich in keinem getesteten Browser zuverlässig seeken
+    // (currentTime springt nach dem 'seeked'-Event wieder auf 0 zurück, obwohl normale
+    // Echtzeit-Wiedergabe einwandfrei funktioniert) – deshalb kein Live-Seek mehr, sondern
+    // ein einmalig vorgerendertes Sprite-Sheet aus SPRITE_COLS x SPRITE_ROWS bereits
+    // freigestellten Frames (siehe excavator-sprite.png). Scrubben ist dadurch sofort und in
+    // beide Richtungen exakt gleich schnell, weil nur noch ein Array-Index berechnet wird statt
+    // auf einen Decoder-Seek zu warten.
+    const SPRITE_COLS = 6, SPRITE_ROWS = 6, SPRITE_FRAMES = SPRITE_COLS * SPRITE_ROWS;
+    const sprite = new Image();
+    let spriteReady = false;
+    sprite.onload = () => { spriteReady = true; drawSpriteFrame(0); };
+    sprite.src = 'excavator-sprite.png';
+
+    function drawSpriteFrame(index) {
+      if (!spriteReady || !canvas.width) return;
+      const fw = sprite.naturalWidth / SPRITE_COLS;
+      const fh = sprite.naturalHeight / SPRITE_ROWS;
+      const i = Math.max(0, Math.min(SPRITE_FRAMES - 1, Math.round(index)));
+      const col = i % SPRITE_COLS, row = Math.floor(i / SPRITE_COLS);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(sprite, col * fw, row * fh, fw, fh, 0, 0, canvas.width, canvas.height);
+    }
+
     function initDesktopScrub() {
-      let seeking = false;
-      let pendingTime = null;
-
-      function applySeek(t) {
-        if (seeking) { pendingTime = t; return; }
-        seeking = true;
-        video.currentTime = t;
-      }
-
-      function onSeeked() {
-        seeking = false;
-        drawKeyedFrame();
-        if (pendingTime !== null) {
-          const t = pendingTime;
-          pendingTime = null;
-          applySeek(t);
-        }
-      }
-      video.addEventListener('seeked', onSeeked);
-
-      const proxy = { t: 0 };
+      const proxy = { f: 0 };
       const tween = gsap.to(proxy, {
-        t: video.duration || 1,
+        f: SPRITE_FRAMES - 1,
         ease: 'none',
-        onUpdate: () => applySeek(proxy.t),
+        onUpdate: () => drawSpriteFrame(proxy.f),
         scrollTrigger: {
           trigger: section,
           start: 'top top',
           end: () => '+=' + window.innerHeight * 1.2,
-          scrub: 1,
+          scrub: 0.35,
           pin: true,
           invalidateOnRefresh: true
         }
       });
-      return () => { video.removeEventListener('seeked', onSeeked); tween.scrollTrigger && tween.scrollTrigger.kill(); tween.kill(); };
+      return () => { tween.scrollTrigger && tween.scrollTrigger.kill(); tween.kill(); };
     }
 
+    // Mobile: Video läuft real (keine Seeks), wird bei jedem Reinscrollen neu gestartet
+    // und bei Verlassen pausiert/zurückgesetzt statt nur einmal pro Seitenaufruf zu spielen.
+    // play() kann auf manchen Mobile-Browsern beim ersten Versuch ablehnen (Autoplay-Heuristik) –
+    // ohne Retry bei der nächsten Sichtbarkeit bliebe die Animation dauerhaft leer.
     function initMobilePlayOnce() {
-      let played = false;
       let rafId = null;
+      let active = false;
 
       function loop() {
         drawKeyedFrame();
-        if (!video.paused && !video.ended) rafId = requestAnimationFrame(loop);
+        if (!video.paused && !video.ended) {
+          rafId = requestAnimationFrame(loop);
+        } else {
+          active = false;
+        }
+      }
+
+      function stop() {
+        active = false;
+        video.pause();
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+
+      function tryPlay() {
+        if (active) return;
+        active = true;
+        video.currentTime = 0;
+        video.play().then(() => {
+          rafId = requestAnimationFrame(loop);
+        }).catch(() => { active = false; });
       }
 
       const io = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && !played) {
-            played = true;
-            video.play().then(loop).catch(() => {});
-            io.disconnect();
-          }
+          if (entry.isIntersecting) tryPlay();
+          else stop();
         });
       }, { threshold: 0.4 });
       io.observe(section);
 
-      return () => { io.disconnect(); if (rafId) cancelAnimationFrame(rafId); };
+      return () => { io.disconnect(); stop(); };
     }
 
     function start() {
